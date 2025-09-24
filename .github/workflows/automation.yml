@@ -1,6 +1,6 @@
 name: GitHub Follower Bot
 
-on:
+"on":
   schedule:
     - cron: '0 */12 * * *'  # Runs every 12 hours
   workflow_dispatch:
