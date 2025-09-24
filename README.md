@@ -104,12 +104,18 @@ python follower_bot.py
     <li><strong>Generate and Save the Token:</strong> Click "Generate token" and <strong>copy the token</strong> immediately, as it will not be shown again.</li>
 </ol>
 
-<h4>2. Storing the PAT as a GitHub Secret:</h4>
+<h4>2. Storing the PAT and Git Configuration as GitHub Secrets:</h4>
 
 <ol>
     <li><strong>Navigate to Your Repository:</strong> Go to your repository on GitHub. Click on "Settings" in the repository menu.</li>
-    <li><strong>Add a New Secret:</strong> On the left sidebar, click on "Secrets and variables" under the "Security" section and select "Actions". Click "New repository secret".</li>
-    <li><strong>Name the secret <code>PERSONAL_GITHUB_TOKEN</code>:</strong> Paste the Personal Access Token you copied earlier into the "Secret" field and click "Add secret" to save it.</li>
+    <li><strong>Add New Secrets:</strong> On the left sidebar, click on "Secrets and variables" under the "Security" section and select "Actions". Click "New repository secret" for each of the following secrets:
+        <ul>
+            <li><strong><code>PERSONAL_GITHUB_TOKEN</code>:</strong> Paste the Personal Access Token you copied earlier into the "Secret" field.</li>
+            <li><strong><code>GITHUB_USER</code>:</strong> Your GitHub username (e.g., "yourusername").</li>
+            <li><strong><code>GIT_USER_NAME</code>:</strong> The name to use for git commits (e.g., "Your Name").</li>
+            <li><strong><code>GIT_USER_EMAIL</code>:</strong> The email to use for git commits (e.g., "your.email@example.com").</li>
+        </ul>
+    </li>
 </ol>
 
 <h4>3. Updating the GitHub Actions Workflow File:</h4>
@@ -117,9 +123,10 @@ python follower_bot.py
 <p>In your YAML file (e.g., <code>automation.yml</code>), update the following:</p>
 
 <ol>
-    <li><strong>Token Reference:</strong> Ensure your workflow is referencing the token correctly:
+    <li><strong>Environment Variables:</strong> Ensure your workflow is referencing the secrets correctly:
         <pre><code>env:
-  GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}</code></pre>
+  GITHUB_USER: ${{ secrets.GITHUB_USER }}
+  PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}</code></pre>
     </li>
     <li><strong>Script Name:</strong> Replace <code>bot.py</code> with your actual script name in the <code>run</code> command:
         <pre><code>run: |
@@ -166,6 +173,12 @@ python follower_bot.py
 ### Environment Variables
 - `GITHUB_USER`: Your GitHub username.
 - `PERSONAL_GITHUB_TOKEN`: Your GitHub Personal Access Token for API access.
+
+### GitHub Actions Secrets (for automated workflow)
+- `PERSONAL_GITHUB_TOKEN`: Your GitHub Personal Access Token for API access.
+- `GITHUB_USER`: Your GitHub username for bot operations.
+- `GIT_USER_NAME`: The name to use for automated git commits.
+- `GIT_USER_EMAIL`: The email to use for automated git commits.
 
 ### Optional Features
 Additional features can be implemented as needed. Check the Issues and Discussions sections for ideas and contributions.
